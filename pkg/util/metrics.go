@@ -134,6 +134,46 @@ type WorkQueueMetrics struct {
 	prefix string
 }
 
+func (p *WorkQueueMetrics) NewLatencyMetric(name string) workqueue.HistogramMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewWorkDurationMetric(name string) workqueue.HistogramMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewLongestRunningProcessorSecondsMetric(name string) workqueue.SettableGaugeMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewDeprecatedDepthMetric(name string) workqueue.GaugeMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewDeprecatedAddsMetric(name string) workqueue.CounterMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewDeprecatedLatencyMetric(name string) workqueue.SummaryMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewDeprecatedWorkDurationMetric(name string) workqueue.SummaryMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewDeprecatedUnfinishedWorkSecondsMetric(name string) workqueue.SettableGaugeMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewDeprecatedLongestRunningProcessorMicrosecondsMetric(name string) workqueue.SettableGaugeMetric {
+	panic("implement me")
+}
+
+func (p *WorkQueueMetrics) NewDeprecatedRetriesMetric(name string) workqueue.CounterMetric {
+	panic("implement me")
+}
+
 func InitializeMetrics(metricsConfig *MetricConfig) {
 	// Start the metrics endpoint for Prometheus to scrape
 	http.Handle(metricsConfig.MetricsEndpoint, promhttp.Handler())
@@ -165,25 +205,25 @@ func (p *WorkQueueMetrics) NewAddsMetric(name string) workqueue.CounterMetric {
 	return addsMetric
 }
 
-// Latency Metric for the kubernetes workqueue.
-func (p *WorkQueueMetrics) NewLatencyMetric(name string) workqueue.SummaryMetric {
-	latencyMetric := prometheus.NewSummary(prometheus.SummaryOpts{
-		Name: CreateValidMetricNameLabel(p.prefix, name+"_latency"),
-		Help: fmt.Sprintf("Latency for workqueue: %s", name),
-	})
-	RegisterMetric(latencyMetric)
-	return latencyMetric
-}
-
-// WorkDuration Metric for the kubernetes workqueue.
-func (p *WorkQueueMetrics) NewWorkDurationMetric(name string) workqueue.SummaryMetric {
-	workDurationMetric := prometheus.NewSummary(prometheus.SummaryOpts{
-		Name: CreateValidMetricNameLabel(p.prefix, name+"_work_duration"),
-		Help: fmt.Sprintf("How long processing an item from workqueue %s takes.", name),
-	})
-	RegisterMetric(workDurationMetric)
-	return workDurationMetric
-}
+//// Latency Metric for the kubernetes workqueue.
+//func (p *WorkQueueMetrics) NewLatencyMetric(name string) workqueue.SummaryMetric {
+//	latencyMetric := prometheus.NewSummary(prometheus.SummaryOpts{
+//		Name: CreateValidMetricNameLabel(p.prefix, name+"_latency"),
+//		Help: fmt.Sprintf("Latency for workqueue: %s", name),
+//	})
+//	RegisterMetric(latencyMetric)
+//	return latencyMetric
+//}
+//
+//// WorkDuration Metric for the kubernetes workqueue.
+//func (p *WorkQueueMetrics) NewWorkDurationMetric(name string) workqueue.SummaryMetric {
+//	workDurationMetric := prometheus.NewSummary(prometheus.SummaryOpts{
+//		Name: CreateValidMetricNameLabel(p.prefix, name+"_work_duration"),
+//		Help: fmt.Sprintf("How long processing an item from workqueue %s takes.", name),
+//	})
+//	RegisterMetric(workDurationMetric)
+//	return workDurationMetric
+//}
 
 // Retry Metric for the kubernetes workqueue.
 func (p *WorkQueueMetrics) NewRetriesMetric(name string) workqueue.CounterMetric {
